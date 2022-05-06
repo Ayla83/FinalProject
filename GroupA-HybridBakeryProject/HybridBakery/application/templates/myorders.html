@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body_content %}
+<h3 class="title">
+  Welcome to your Hybrid Bakery order history, {{ name }}.
+</h3>
+<p>Please don't hesitate to contact us with any queries. Your customer number is {{number}}. Quoting your customer number and order number will help us to help you.</p>
+<div>
+    <table class="table">
+  <thead class = "thead-light">
+    <tr>
+      <th scope="col">Order Number</th>
+      <th scope="col">Value</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Delivery Address</th>
+      <th scope="col">Recipient</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for order_detail in order_detail %}
+<TR>
+   <!-- add images? <TD class="c1"><IMG src="favicon.ico"></TD> -->
+   <TD class="c1">{{order_detail.id}}</TD>
+   <TD class="c2">£{{order_detail.order_value}}</TD>
+   <TD class="c3">{{order_detail.order_date.strftime('%d/%m/%Y')}}</TD>
+   <TD class="c4">{{order_detail.order_status}}</TD>
+   <TD class="c5">{{order_detail.get_delivery_address().first_line}}<br />{{order_detail.get_delivery_address().second_line}}<br />{{order_detail.get_delivery_address().town}}<br /> {{order_detail.get_delivery_address().postcode}}<br /></TD>
+   <TD class="c6">{{order_detail.delivery_recipient}}</TD>
+
+</TR>
+{% endfor %}
+    </table>
+</div>
+{% endblock %}
